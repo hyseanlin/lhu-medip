@@ -30,24 +30,26 @@ kps = orb.detect(image, None)
 overlay = image.copy()
 
 # --------------------------------------------------
-# Draw small transparent keypoints manually
+# Draw transparent outlined circles
 # --------------------------------------------------
 for kp in kps:
     x, y = map(int, kp.pt)
 
-    radius = 3 #(small point)
+    radius = 7          # smaller circle
+    thickness = 1       # outline thickness
+
     cv2.circle(
         overlay,
         (x, y),
         radius,
-        (0, 0, 255),   # red
-        -1             # filled circle
+        (0, 0, 255),    # green color
+        thickness        # positive thickness = outlined circle
     )
 
 # --------------------------------------------------
 # Blend overlay with original image
 # --------------------------------------------------
-alpha = 0.35
+alpha = 0.8
 
 result = cv2.addWeighted(
     overlay,
